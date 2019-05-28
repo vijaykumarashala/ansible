@@ -1,0 +1,79 @@
+ansible-playbook -i <> -e package_name better-lamp.yml
+
+vairbles priority
+commandline --> inventory file --> playbook
+
+
+-vvv verbose to check failure
+
+Jinja template (.j2)
+
+ansible -m setup localhost (variables)
+ansible -m setup localhost -a "filter=*os*"
+
+ansible by default works 5 servers parallely (fork change this google)
+
+jinja  filetrs -- google
+
+roles: playbook file organized with folders 
+ansible galaxy
+-- installation
+ansible-galaxy install geerlingguy.java
+
+- hosts: server
+  roles:
+    - role: geerlingguy.java
+      when: "ansible_os_family == 'RedHat'"
+      java_packages:
+        - java-1.8.0-openjdk
+        
+role structure:
+
+site.yml
+webservers.yml
+fooservers.yml
+roles/
+   common/
+     tasks/
+     handlers/
+     files/
+     templates/
+     vars/
+     defaults/
+     meta/
+   webservers/
+     tasks/
+     defaults/
+     meta/
+or
+ansible-galaxy init default
+
+calling yall file from another
+
+include_tasks: testing.yml
+
+===========
+touch site.yml
+- hosts: all
+  become: yes
+  roles:
+  - tomcat
+  - geerlinguy.mysql
+  
+ local folder
+ then ansible galaxy
+ 
+ 
+mkdir inventory
+touch dev qa
+ansible-playbook -i inventory/dev finetech.yml  
+
+
+become_user: username
+
+
+
+
+
+
+

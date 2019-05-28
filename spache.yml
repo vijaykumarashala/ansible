@@ -1,0 +1,35 @@
+---
+- hosts: all
+  become: yes
+  vars:
+  - package_name:ngnix
+  - php_packages
+    - php
+    - php-mysql
+  tasks:
+   - name: install apahce
+     package:
+       name: "{{ package_name }}"
+       state: present
+     notify:
+     - restart apache
+        
+   - name: install php
+     package:
+       name: "{{ item }}"
+       state: present
+     with_items: "{{ php_packages }}"
+   - name: php web app
+     get_url:
+       url: https://raw.githubusercontent.com/asquarezone/AnsibleZone/master/ClassRoomExamples/July2018/basics/info.php
+       dest: /var/www/html/info.php
+     notify:
+     - restart apache
+   
+  handlers:
+   - name: restart apache
+     service:
+       name: "{{ package_name }}"
+       state: restarted
+       
+      
