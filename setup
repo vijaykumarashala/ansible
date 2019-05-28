@@ -32,3 +32,4 @@ sudo apt install python
 
 
 
+ansible -m ping all
