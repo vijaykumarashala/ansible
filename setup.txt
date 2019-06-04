@@ -1,0 +1,41 @@
+adduser ansible
+usermod -aG sudo ansible
+su - ansible
+sudo ls -l /root
+
+=====================
+https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-ansible-on-ubuntu-18-04
+
+sudo apt update
+sudo apt install software-properties-common
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt update
+sudo apt install ansible
+
+==========================
+
+ssh-keygen -t rsa -N "" -f /home/ubuntu/.ssh/id_rsa
+Copy your private AWS key as ~/.ssh/my.key 
+chmod 600 .ssh/my.key
+cat ~/.ssh/id_rsa.pub | ssh -i ~/.ssh/my.key ubuntu@10.0.0.X "cat >> ~/.ssh/authorized_keys"
+ssh 10.0.0.X
+
+
+
+
+
+
+sudo apt update
+sudo apt install python
+
+=============
+
+install jenkins
+jenkins
+sudo
+sshkeyjen
+
+
+
+
+

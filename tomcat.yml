@@ -1,0 +1,48 @@
+deploy war on tomcat ubuntu
+env: jdk8 tomcat8
+copy was war file to webapps
+
+javatomcat.yml
+---
+- hosts: all
+  become:yes
+  roles:
+   - geerlingguy.java
+   - idealista.tomcat-role
+  tasks:
+  - name: copy war
+     copy:
+       src: sample.war
+       dest: /opt/tomcat/webapps
+    notify: 
+    - restart tomcat
+       
+   handlers:
+   - name: restart tomcat
+     service:
+       name: tomcat
+       enabled: yes
+       state: restarted
+       
+
+install roles on oonly control server
+
+mkdir hosts
+ansible-playbook -i hosts javatomcat.yml
+
+mkdir environments
+mkdir dev qa(inv files)
+vi dev
+[appsserver]
+locahhost
+
+vi qa
+[appserver]
+192.168.0.4
+
+
+
+
+  
+  
+    
