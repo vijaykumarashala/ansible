@@ -1,0 +1,71 @@
+---
+- hosts: ubuntu
+  become: yes
+  
+  tasks:
+    - name: update apt and install git
+      apt:
+        name: git
+        update_cache: yes
+        state: present
+        
+    - name: create node dir
+      file:
+        path: /home/ubuntu/node
+        state: directory
+        
+    - name: create nodejs dir
+      file:
+        path: /home/ubuntu/nodejs
+        state: directory
+        
+    - name: create etc dir
+      file:
+        path: /home/ubuntu/node/etc
+        state: directory
+        
+    - name: get the package
+      get_url:
+        url: https://nodejs.org/dist/v4.2.3/node-v4.2.3-linux-x64.tar.gz
+        dest: /home/ubuntu/node
+        
+    - name: extract file
+      unarchive:
+        src: /home/ubuntu/node/node-v4.2.3-linux-x64.tar.gz
+        dest: /home/ubuntu/nodejs
+        remote_src: yes
+        
+    - name: execute command
+      command: echo 'prefix=/usr/local' > node/etc/npmrc
+      
+    - name: execute command
+      command: mv /home/ubuntu/nodejs /opt
+    
+    - name: create sym link
+      file:
+        src: /opt/node/bin/node
+        dest: /usr/local/bin/node
+        
+    - name: create sym link
+      file:
+        src: /opt/node/bin/npm
+        dest: /usr/local/bin/npm
+        
+    - name: create hello.js
+      template:
+        src: hello.j2
+        dest: /home/ubuntu/hello.js
+    
+    - name: execute command
+      command: node /home/ubuntu/hello.js
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
