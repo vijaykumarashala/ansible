@@ -1,19 +1,15 @@
----
+---  
 - hosts: all
   become: yes
   tasks:
-    - name: test ping to hosts
-      ping:
-    
-    - name: update apt and install git
-      apt:
-       name: git
-       update_cache: yes
-       state: present
-       
-    - name: install tree
-      apt:
-       name: tree
-       state: present
-     
-       
+  - name: Execute ansible ping on hosts
+    ping:
+  - name: Update packages
+    package:
+      name: git
+      update_cache: yes
+      state: present
+  - name: install tree
+    package:
+      name: tree
+      state: present
