@@ -1,0 +1,61 @@
+---
+ - hosts: all
+   become: yes
+   vars:
+     - tomcat_group: tomcat
+     - tomcat_name: tomcat
+     - tomcat_home: /home/{{ tomcat_name }}
+   
+   
+   tasks:
+   - name: install packages
+     apt:
+       name: "{{ items }}"
+       autoremove: yes
+       update_cache: yes
+       state: present
+     with_items:
+       - wget
+       - tar
+       
+   - name: create tomcat group
+     group:
+       name: "{{ tomcat_group }}"
+       state: present
+       
+   - name: create user
+     user:
+       name: "{{ tomcat_name }}"
+       group: "{{ tomcat_group }}"
+       home: "{{ tomcat_home }}"
+       state: present
+       system: true
+       
+   - name: create tomcat install dir
+     file:
+       path: /opt/tomcat-archives
+       state: directory
+   
+   - name: get package
+     get_url:
+       dest: /opt/tomcat-archives/
+       url: http://apache.mirrors.ionfish.org/tomcat/tomcat-8/v8.5.41/bin/apache-tomcat-8.5.41.tar.gz
+       
+   - name: extract tomcat 
+     unarchive:
+       src: /opt/tomcat-archives/apache-tomcat-8.5.41.tar.gz
+       dest: /home/{{ tomcat_name }}
+       remote_src: yes
+       group: "{{ tomcat_group }}"
+       owner: "{{ tomcat_name }}"
+       keep_newer: yes
+       
+   - name: give ownership
+     file:
+       path: /home/{{ tomcat_name }}
+       group: "{{ tomcat_group }}"
+       owner: "{{ tomcat_name }}"
+       state: directory
+       
+       
+       

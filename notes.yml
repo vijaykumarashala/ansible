@@ -1,4 +1,13 @@
+create same user on all the server
+install ansible on ACS
+passwordauthentiction yes -- /etc/ssh/sshd_config
+create key on ACS -- sshkeygen
+copy to .ssh/auth on nodes
+
+
 ansible-playbook -i <> -e package_name better-lamp.yml
+
+/var/ansible/log
 
 vairbles priority
 commandline --> inventory file --> playbook
@@ -51,6 +60,8 @@ ansible-galaxy init default
 calling yall file from another
 
 include_tasks: testing.yml
+include_vars (explicit variables)
+--extravars (command line)
 
 ===========
 touch site.yml
@@ -70,6 +81,76 @@ ansible-playbook -i inventory/dev finetech.yml
 
 
 become_user: username
+
+-------------------------------
+different user name on localhost
+ansible_user= username
+=========
+reverse proxy 
+10:00 -- aug 03
+
+tag is used to control the execution of playbook
+tag:
+ - imp
+ansible-playbook -t imp lamp.yml
+when is used instead of tag
+
+==============
+parallelism - max ssh connections
+default parallelism is 5
+fork(-f 100conecntions)
+===================
+debug
+register -- stores all content to display content
+
+=======================
+dynamic inventory - infra in cloud
+can be in any language
+number of servers chanes in cloud depends on req
+
+ansible-playbook i <dynamicinventory> better-lamp.yml
+
+predefined scripts -- google --  dynamic inventory for aws
+https://www.infinitypp.com/ansible/ansible-dynamic-inventory-aws/
+https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/ec2.py
+
+====================
+ansible-vault -- encryption and decryption
+ansible-vault encrypt message.txt
+cat message.txt
+ansible-vault view message.tx
+enter pwd
+
+============
+ansible tower -- visual way 
+https://www.ansible.com/products/tower/trial?utm_campaign=Ansible+Site&utm_source=Website&utm_medium=Global+Nav+CTA&hsCtaTracking=e03c3f2c-d0b6-4f93-8adb-670ff85cde64%7C8216131f-2cee-4c96-96c9-1ca807d81c01
+
+create ec2 machine
+install tower
+to control ansibleserver we user tower web page
+10 nodes ansible tower is free
+we get 
+- userpermissions
+- audit train(license)
+- History
+
+
+access through
+https://ip
+uid & pwd
+license
+
+
+
+https://github.com/asquarezone/ChefZone/blob/master/Workbook/nodejs/Workbooks.md
+
+
+
+
+
+
+
+
 
 
 
