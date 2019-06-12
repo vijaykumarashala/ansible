@@ -31,5 +31,8 @@ sudo apt install python
 
 
 
-
+ssh: ubuntu@localhost: Permission denied (publickey).
 ansible -m ping all
+if not works for localhost
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+https://stackoverflow.com/questions/28210637/unable-to-ssh-localhost-permission-denied-publickey-connection-closed-by
